@@ -4,14 +4,6 @@
 
 #include "usb_datachannel.h"
 #include "usb_uvc.h"
-/*
- * Hooks used for bootloader reset signalling
- */
-
-
-static void rxHook(unsigned, void*);
-static void ifaceSetupHook(unsigned, void*);
-
 
 /*
  * USBSerial interface
@@ -32,9 +24,6 @@ void USBDataChannel::begin(void) {
         return;
     _hasBegun = true;
 
-    usb_cdcacm_enable(BOARD_USB_DISC_DEV, (uint8_t)BOARD_USB_DISC_BIT);
-    usb_cdcacm_set_hooks(USB_CDCACM_HOOK_RX, rxHook);
-    usb_cdcacm_set_hooks(USB_CDCACM_HOOK_IFACE_SETUP, ifaceSetupHook);
-
+    usb_enable(BOARD_USB_DISC_DEV, (uint8_t)BOARD_USB_DISC_BIT);
 }
 
